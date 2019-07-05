@@ -1,5 +1,6 @@
 from flask import Flask
 from weasel import weasel
+import json
 
 def create_app():
     app = Flask(__name__)
@@ -7,9 +8,7 @@ def create_app():
     @app.route('/')
     def index():
         output = weasel("hello world", 5, 5)
-        for o in output:
-            print(o)
-        return "output"
+        return json.dumps(output)
 
     @app.errorhandler(404)
     def page_not_found(error):
