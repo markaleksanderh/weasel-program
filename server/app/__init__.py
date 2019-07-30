@@ -1,10 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from weasel import weasel
 import json
 
 def create_app():
     app = Flask(__name__)
-
+    CORS(app)
     @app.route('/')
     def index():
         output = weasel("hello world", 5, 5)
