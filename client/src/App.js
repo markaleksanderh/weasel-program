@@ -1,39 +1,35 @@
 import React, {Component} from 'react';
+import {List} from 'semantic-ui-react'
 
 import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-
-//     </div>
-//   );
-// }
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hits: []
+      hits: [],
+      isLoading: false,
     }
   }
   componentDidMount() {
+    this.setState({isLoading:true})
     fetch('http://localhost:5000')
       .then(response => response.json())
-      .then(data => this.setState({hits: data}))
+      .then(data => this.setState({hits: data, isLoading: false}))
   }
   
   render() {
-    const {hits} = this.state
-
+    const {hits, isLoading} = this.state
+    if (isLoading) {
+      return <p>Loading...</p>
+    }
     return (
-      <ul>
+      <List>
         {hits.map(hit =>
-        <li>{hit}
-        </li>
+        <List.Item>{hit}</List.Item>
           
           )}
-      </ul>
+      </List>
     )
   }
 }
