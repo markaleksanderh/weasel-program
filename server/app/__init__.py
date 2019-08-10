@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from weasel import weasel
+from random import randint
 import json
 
 def create_app():
@@ -8,8 +9,10 @@ def create_app():
     CORS(app)
     @app.route('/')
     def index():
-        output = weasel("hello world", 5, 5)
-        return json.dumps(output)
+        number = randint(0,100)
+        # output = weasel("hello world", 5, 5)
+        # return json.dumps(output)
+        return json.dumps(number)
 
     @app.errorhandler(404)
     def page_not_found(error):
